@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
+Route::group(['prefix' => 'categories'], function() {
+Route::get('/', 'AdminCategoryController@getAdminListCategory');
+Route::get('add', 'AdminCategoryController@getAdminAddCategory');
+Route::post('add', 'AdminCategoryController@postAdminAddCategory');
+Route::get('edit/{id}', 'AdminCategoryController@getAdminEditCategory');
+Route::post('edit/{id}', 'AdminCategoryController@postAdminEditCategory');
+Route::get('delete/{id}', 'AdminCategoryController@getAdminDeleteCategory');
+});
