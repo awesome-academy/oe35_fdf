@@ -18,10 +18,10 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'categories'], function() {
-Route::get('/', 'AdminCategoriesController@getAdminListCategory');
-Route::get('add', 'AdminCategoriesController@getAdminAddCategory');
-Route::post('add', 'AdminCategoriesController@postAdminAddCategory');
-Route::get('edit/{id}', 'AdminCategoriesController@getAdminEditCategory');
-Route::post('edit/{id}', 'AdminCategoriesController@postAdminEditCategory');
-Route::get('delete/{id}', 'AdminCategoriesController@getAdminDeleteCategory');
+Route::get('/', 'AdminCategoryController@getAdminListCategory');
+Route::get('add', 'AdminCategoryController@getAdminAddCategory');
+Route::post('add', 'AdminCategoryController@postAdminAddCategory');
+Route::get('edit/{id}', 'AdminCategoryController@getAdminEditCategory');
+Route::post('edit/{id}', 'AdminCategoryController@postAdminEditCategory');
+Route::get('delete/{id}', 'AdminCategoryController@getAdminDeleteCategory');
 });
