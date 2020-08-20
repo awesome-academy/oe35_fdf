@@ -13,5 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    return view('welcome');
+    return view('homepage');
+});
+
+Auth::routes();
+
+Route::get('/homepage', 'HomeController@index');
+
+Route::prefix('admin')->group(function() {
+    Route::prefix('users')->group(function() {
+        Route::get('/', 'AdminUserController@index')->name('users.index');
+        Route::get('delete/{id}', 'AdminUserController@delete')->name('users.delete');
+    });
 });
