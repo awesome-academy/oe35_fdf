@@ -19,4 +19,21 @@ return [
     'resetpassword' => 'Reset Password',
     'sendpasswordsesetlink' => 'Send Password Reset Link',
     'confirmyourpasswordbeforecontinuing' => 'Please confirm your password before continuing.',
+
+
+    'dashboard' => 'Dashboard',
+    'list' => 'Menu',
+    'action' => 'Action',
+    'add' => 'Add',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+
+    'managecategory' => 'Manage Category',
+    'category' => 'Category',
+
+    'manageusers' => 'Manage Users',
+    'id' => 'ID',
+    'nameuser' => 'User Name',
+    'addresshome' => 'Address',
+    'phone' => 'Phone',
 ];

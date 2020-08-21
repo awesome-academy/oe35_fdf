@@ -19,4 +19,20 @@ return [
     'resetpassword' => 'Đặt lại mật khẩu',
     'sendpasswordsesetlink' => 'Gửi liên kết đặt lại mật khẩu',
     'confirmyourpasswordbeforecontinuing' => 'Vui lòng xác nhận mật khẩu của bạn trước khi tiếp tục.',
+
+    'dashboard' => 'Bảng tổng quan',
+    'list' => 'Thực đơn',
+    'action' => 'Thao tác',
+    'add' => 'Thêm vào',
+    'edit' => 'Chỉnh sửa',
+    'delete' => 'Xóa bỏ',
+
+    'managecategory' => 'Quản lý danh mục',
+    'category' => 'Thể loại',
+
+    'manageusers' => 'Quản lý người dùng',
+    'id' => 'ID',
+    'nameuser' => 'Tên tài khoản',
+    'addresshome' => 'Địa chỉ nhà',
+    'phone' => 'Điện thoại',
 ];
