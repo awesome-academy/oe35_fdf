@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 return [
     'welcome' => 'Welcome to Website!',
     'login'   => 'Login',
@@ -39,10 +38,7 @@ return [
 
     'fail' => 'Fail Id failed',
     'stt' => 'STT',
-];
-=======
 
-return [
     'addcate' => 'Add Categories',
     'cate' => 'Category',
     'catename' => 'Category Name',
@@ -74,6 +70,4 @@ return [
     'Product' => 'Product',
 
 ];
-
 ?>
->>>>>>> 7a79e16... Manager Categories
