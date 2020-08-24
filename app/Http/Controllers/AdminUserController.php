@@ -29,9 +29,9 @@ class AdminUserController extends Controller
         if( $user != null ){
             $user->delete();
             Session::put('message_delete', 'Success');
+            return redirect()->back();
         } else {
-            Session::put('message_delete', 'Delete failed');
+            return back()->withErrors( trans('message.fail'));
         }
-        return redirect()->back();
     }
 }
