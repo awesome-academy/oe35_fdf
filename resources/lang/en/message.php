@@ -1,5 +1,37 @@
 <?php
+
 return [
+    'addcate' => 'Add Categories',
+    'cate' => 'Category',
+    'catename' => 'Category Name',
+    'Dashboard' => 'Dashboard',
+    'List' => 'List',
+    'Category' => 'Category',
+    'You have 3 Notification' => 'You have 3 Notification',
+    'error' => 'Whoops! Something went wrong!',
+    'MyProfile' => 'My Profile',
+    'Logout' => 'Logout',
+    'edit' => 'ID không tồn tại',
+    'xoa' => 'ID không tồn tại',
+
+    'id' => 'ID',
+    'categoriesname' => 'Categories Name',
+    'parentid' => 'Parent ID',
+    'Edit' => 'Edit',
+    'Delete' => 'Delete',
+    'editcate' => 'Edit Categories',
+    'parent' => 'Parent ID',
+
+    'Product' => 'Product',
+    'AddCategories' => 'Add Categories',
+    'ListCategories' => 'List Categories',
+    'AddProduct' => 'Add Product',
+    'ListProduct' => 'List Product',
+
+    'AddProduct' => 'Add Product',
+    'Product' => 'Product',
+  
+  
     'welcome' => 'Welcome to Website!',
     'login'   => 'Login',
     'logout'  => 'Logout',
@@ -36,7 +68,6 @@ return [
     'nameuser' => 'User Name',
     'addresshome' => 'Address',
     'phone' => 'Phone',
-
-    'fail' => 'Fail Id failed',
-    'stt' => 'STT',
 ];
+?>
+

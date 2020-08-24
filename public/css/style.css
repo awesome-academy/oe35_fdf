@@ -38,6 +38,10 @@ body {
 	font-smoothing: antialiased;
 }
 
+.success {
+    color: "green";
+}
+
 h1,
 h2,
 h3,
