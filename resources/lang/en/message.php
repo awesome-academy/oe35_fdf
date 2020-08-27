@@ -36,16 +36,16 @@ return [
     'Delete' => 'Delete',
     'editcate' => 'Edit Categories',
     'parent' => 'Parent ID',
-
+    'change' => 'Thay Đổi Mật Khẩu',
     'Product' => 'Product',
     'AddCategories' => 'Add Categories',
     'ListCategories' => 'List Categories',
     'AddProduct' => 'Add Product',
     'ListProduct' => 'List Product',
-
+    'passwordnew' => 'Password New',
     'AddProduct' => 'Add Product',
     'Product' => 'Product',
-
+    'diachi'  => 'Address',
     'welcome' => 'Welcome to Website!',
     'login'   => 'Login',
     'logout'  => 'Logout',

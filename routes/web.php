@@ -44,3 +44,7 @@ Route::prefix('admin')->group(function() {
 Route::resource('suggest', 'SuggestController')->only([
     'index', 'store'
 ]);
+
+Route::resource('profile', 'ProfileController')->only([
+    'index', 'update'
+]);
