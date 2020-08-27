@@ -98,7 +98,7 @@ class AdminProductController extends Controller
             if($request->hasFile('product_img')){
                 $file_name = $request->file('product_img')->getClientOriginalName();
                 $product->product_img = $file_name;
-                $request->file('img')->move('image',$file_name);
+                $request->file('product_img')->move('image',$file_name);
             }
             $product->description = $request->description;
             $product->price = $request->price;

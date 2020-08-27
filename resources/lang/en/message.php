@@ -10,7 +10,7 @@ return [
     'EditProduct' => 'Edit Product',
     'addcate' => 'Add Categories',
     'cate' => 'Category',
-
+    'favorite' => 'Sở Thích Của Bạn',
     'catename' => 'Category Name',
     'Dashboard' => 'Dashboard',
     'List' => 'List',
