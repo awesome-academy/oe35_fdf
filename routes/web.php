@@ -12,9 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('homepage');
-});
+Route::get('/', 'HomeController@index');
+
 Route::group(['prefix' => 'admin'], function() {
     Route::resource('product', 'AdminProductController');
     Route::resource('categories', 'AdminCategoriesController');
@@ -32,13 +31,24 @@ Route::post('edit/{id}', 'AdminCategoriesController@postAdminEditCategory');
 Route::get('delete/{id}', 'AdminCategoriesController@getAdminDeleteCategory');
 });
 Auth::routes();
-Route::get('/homepage', 'HomeController@index');
 
 Route::prefix('admin')->group(function() {
     Route::prefix('users')->group(function() {
         Route::get('/', 'AdminUserController@index')->name('users.index');
         Route::get('delete/{id}', 'AdminUserController@delete')->name('users.delete');
     });
+});
+
+Route::prefix('/homepage')->group(function() {
+    Route::get('/', 'HomeController@index');
+    Route::get('productdetail/{id}', 'HomeController@get_product_detail')->name('get_product_detail');
+});
+
+Route::prefix('cart')->group(function() {
+    Route::post('/', 'CartController@save_cart')->name('cart');
+    Route::get('/', 'CartController@index')->name('showcart');
+    Route::get('delete/{id}', 'CartController@delete_cart')->name('card.delete');
+    Route::post('update_quantity', 'CartController@update_cart');
 });
 
 Route::resource('suggest', 'SuggestController')->only([

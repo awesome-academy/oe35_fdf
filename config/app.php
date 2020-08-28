@@ -17,6 +17,7 @@ return [
 
 
     'paginate' => env('paginate', 4),
+    'paginate12' => env('paginate12', 12),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
