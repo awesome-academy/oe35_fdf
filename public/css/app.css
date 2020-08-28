@@ -25,6 +25,9 @@
     width: 30%;
     height: 30%;
 }
+#profile{
+    margin-left: 10%;
+}
 :root {
   --blue: #3490dc;
   --indigo: #6574cd;
