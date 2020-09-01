@@ -78,7 +78,7 @@
                         </tfoot>
                     </table>
                 <div class="pull-right">
-                    <a href=""> <button class="primary-btn">{{ trans('message.placeorder')}}</button></a>
+                    <a href="{{route('place.order')}}"> <button class="primary-btn">{{ trans('message.placeorder')}}</button></a>
                 </div>
             </div>
         </div>

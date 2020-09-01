@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Order extends Model
 {
-    protected $table = 'product';
+    protected $table = 'order';
     protected $primaryKey = 'id';
     protected $guarded = [];
 
-    public function product_cate(){
-        return $this->belongsTo('App\Models\Categories', 'id', 'categories_id');
+    public function user()
+    {
+
+        return $this->belongTo(User::class);
     }
 
     public function orderdetail()

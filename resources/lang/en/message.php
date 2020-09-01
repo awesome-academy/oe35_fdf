@@ -136,5 +136,10 @@ return [
     'pages' => 'Pages',
     'order' => 'Order',
     'gopy' => 'Suggest',
+
+    'ordered' => 'History Order',
+    'status' => 'Status',
+    'orderdate' => 'Order Date',
+    'orderdetail' => 'Order Detail',
 ];
 ?>

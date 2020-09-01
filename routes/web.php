@@ -40,7 +40,7 @@ Route::prefix('admin')->group(function() {
 });
 
 Route::prefix('/homepage')->group(function() {
-    Route::get('/', 'HomeController@index');
+    Route::get('/', 'HomeController@index')->name('homepage');
     Route::get('productdetail/{id}', 'HomeController@get_product_detail')->name('get_product_detail');
 });
 
@@ -49,6 +49,11 @@ Route::prefix('cart')->group(function() {
     Route::get('/', 'CartController@index')->name('showcart');
     Route::get('delete/{id}', 'CartController@delete_cart')->name('card.delete');
     Route::post('update_quantity', 'CartController@update_cart');
+    Route::get('/place-order', 'CartController@place_order')->name('place.order');
+});
+
+Route::prefix('order')->group(function() {
+    Route::get('/place-order', 'OrderController@place_order')->name('place.order');
 });
 
 Route::resource('suggest', 'SuggestController')->only([

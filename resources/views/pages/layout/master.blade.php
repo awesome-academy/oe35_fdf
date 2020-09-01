@@ -29,7 +29,7 @@
                 <div class="humberger__menu__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>{{ trans('message.totalfavorite')}}</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>{{ trans('message.totalfavorite')}}</span></a></li>
+                        <li><a href="{{route('showcart')}}"><i class="fa fa-shopping-bag"></i> <span>{{ trans('message.totalfavorite')}}</span></a></li>
                     </ul>
                     <div class="header__cart__price"><span>{{ trans('message.price')}}</span></div>
                 </div>
@@ -49,7 +49,7 @@
                 </div>
                 <nav class="humberger__menu__nav mobile-menu">
                     <ul>
-                        <li class="active"><a href="./index.html">{{ trans('message.home')}}</a></li>
+                        <li class="active"><a href="{{route('showcart')}}">{{ trans('message.home')}}</a></li>
                         <li><a href="./shop-grid.html">{{ trans('message.shop')}}</a></li>
                         <li><a href="#">{{ trans('message.pages')}}</a>
                             <ul class="header__menu__dropdown">
