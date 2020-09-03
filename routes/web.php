@@ -63,3 +63,7 @@ Route::resource('suggest', 'SuggestController')->only([
 Route::resource('profile', 'ProfileController')->only([
     'index', 'update'
 ]);
+
+Route::resource('favorite', 'FavoriteController')->only([
+    'index', 'update'
+]);

@@ -11,6 +11,7 @@
                 </div>
             </div>
         </div>
+         @include('errors.note')
         <div class="row featured__filter">
         @if(isset($products))
             @foreach($products as $product)
@@ -18,7 +19,14 @@
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="{{'image/'.$product->product_img}}">
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <form method="post" action="{{asset('favorite/'.$product->id)}}">
+                                    {{csrf_field()}}
+                                    @method('PUT')
+                                    @guest
+                                    @else
+                                    <li><button type="submit" class="btn btn-danger"><i class="fa fa-heart"></i></button></li>
+                                    @endguest
+                                </form>
                                 <li><a href="{{route('get_product_detail', $product->id)}}"><i class="fa fa-retweet"></i></a></li>
                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
@@ -36,3 +44,4 @@
     </div>
 </section>
 @stop
+

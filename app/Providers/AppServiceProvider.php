@@ -3,7 +3,14 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\Models\Categories;
+use App\Models\Suggest;
+use App\Models\Favorite;
+use App\Models\Product;
+use App\User;
+use Session;
+use Auth;
+use DB;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
 }

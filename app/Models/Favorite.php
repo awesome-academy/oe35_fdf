@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Suggest extends Model
+class Favorite extends Model
 {
-    protected $table = 'suggest';
+    protected $table = 'favorite';
     protected $primaryKey = 'id';
     protected $guarded = [];
 
     public function product_cate(){
-        return $this->belongsTo(Categories::class);
+        return $this->belongsTo(Product::class);
     }
 
     public function user(){
