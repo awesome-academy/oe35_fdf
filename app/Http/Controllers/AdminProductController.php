@@ -8,11 +8,23 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input as input;
 use Illuminate\Http\File;
 use App\Models\Categories;
+use App\Repositories\Interfaces\CategoriesRepositoryInterface;
+use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Models\Product;
 use App\Http\Requests\AddProductRequest;
 use App\Http\Requests\EditProductRequest;
 class AdminProductController extends Controller
 {
+    private $categoriesRepository;
+    private $productRepository;
+    public function __construct(
+        CategoriesRepositoryInterface $categoriesRepository,
+        ProductRepositoryInterface $productRepository
+    )
+    {
+        $this->categoriesRepository = $categoriesRepository;
+        $this->productRepository = $productRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +32,8 @@ class AdminProductController extends Controller
      */
     public function index()
     {
-        $data['products'] = Product::orderby('id', 'asc')->paginate(Config::get('app.paginate'));
-
-        return view('admin.product.listproduct',$data);
+        $products = $this->productRepository->getProducts();
+        return view('admin.product.listproduct', compact(['products']));
     }
 
     /**
@@ -32,9 +43,7 @@ class AdminProductController extends Controller
      */
     public function create()
     {
-        $data['catelist'] = Categories::all();
-
-        return view('admin.product.addproduct',$data);
+        return view('admin.product.addproduct');
     }
 
     /**
@@ -45,16 +54,7 @@ class AdminProductController extends Controller
      */
     public function store(AddProductRequest $request)
     {
-        $file_name = $request->file('product_img')->getClientOriginalName();
-        $product = new Product;
-        $product->product_name = $request->product_name;
-        $product->product_img = $file_name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->categories_id = $request->categories_id;
-        $request->file('product_img')->move('image',$file_name);
-        $product->save();
-
+        $this->productRepository->createProduct($request->all());
         return redirect('admin/product');
     }
 
@@ -77,10 +77,14 @@ class AdminProductController extends Controller
      */
     public function edit($id)
     {
-        $data['products'] = Product::find($id);
-        $data['catelist'] = Categories::all();
+        try {
+            $products = $this->productRepository->findProduct($id);
 
-        return view('admin.product.editproduct',$data);
+            return view('admin.product.editproduct', compact(['products']));
+        } catch (Exception $e) {
+
+            return back()->withErrors( __('message.edit'));
+        }
     }
 
     /**
@@ -92,23 +96,12 @@ class AdminProductController extends Controller
      */
     public function update(EditProductRequest $request, $id)
     {
-        if($id != null){
-            $product = Product::find($id);
-            $product->product_name = $request->product_name;
-            if($request->hasFile('product_img')){
-                $file_name = $request->file('product_img')->getClientOriginalName();
-                $product->product_img = $file_name;
-                $request->file('product_img')->move('image',$file_name);
-            }
-            $product->description = $request->description;
-            $product->price = $request->price;
-            $product->categories_id = $request->categories_id;
-            $product->save();
+        try {
+            $update = $this->productRepository->updateProduct($id, $request->all());
 
-            return redirect('admin/product');
-        }
-        else
-        {
+            return redirect()->intended('admin/product');
+        } catch (Exception $e) {
+
             return back()->withErrors( __('message.edit'));
         }
     }

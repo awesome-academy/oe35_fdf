@@ -48,7 +48,7 @@
                                 @endforeach
                             </select>
                             <div class="form-group">
-                                <input type="submit" name="submit" value="Add Product" class="btn btn-primary mt-5">
+                                <input type="submit" value="Add Product" class="btn btn-primary mt-5">
                             </div>
                         </form>
                     </div>

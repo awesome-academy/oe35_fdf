@@ -23,7 +23,7 @@
                                 <small class="form-text text-muted">ex. Sữa đổ vào trà.</small>
                             </div>
                             <label class=" form-control-label">{{ trans('message.parent')}}</label>
-                            <select data-placeholder="Choose a Country..." class="standardSelect mt-3" tabindex="1" name="parent">
+                            <select data-placeholder="Choose a Country..." class="standardSelect mt-3" tabindex="1" name="parent_id">
                                     <option value="{{$editcate->parent_id}}">{{$editcate->parent_id}}</option>
                                     <option value="" label="Null Parent ID"></option>
                                     @foreach ($catelist as $cate)

@@ -9,8 +9,17 @@ use App\User;
 use Session;
 use Auth;
 use App\Http\Requests\ChangePasswordRequest;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 class ProfileController extends Controller
 {
+    private $userRepository;
+
+    public function __construct(
+        UserRepositoryInterface $userRepository
+    )
+    {
+        $this->userRepository = $userRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -73,21 +82,12 @@ class ProfileController extends Controller
      */
     public function update(ChangePasswordRequest $request, $id)
     {
-        if($id != null){
-            $user = User::find($id);
-            if(Auth::user()->password = bcrypt($request->password)){
-            $user->password = bcrypt($request->newpassword);
-            $user->save();
+        try {
+        $update = $this->userRepository->updateUser($id, $request->all());
 
             return redirect('/homepage');
-            }
-             else
-            {
-                return back()->withErrors( __('message.forgotpassword'));
-            }
-        }
-        else
-        {
+        } catch (Exception $e) {
+
             return back()->withErrors( __('message.edit'));
         }
     }

@@ -29,7 +29,7 @@
                                 @endforeach
                             </select>
                             <div class="form-group">
-                                <input type="submit" name="submit" value="Add Category" class="btn btn-primary mt-5">
+                                <input type="submit" value="Add Category" class="btn btn-primary mt-5">
                             </div>
                         </form>
                     </div>

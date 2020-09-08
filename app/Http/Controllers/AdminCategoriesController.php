@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 use App\Models\Categories;
 use App\Http\Requests\AddCategoriesRequest;
 use App\Http\Requests\EditCategoriesRequest;
-
+use App\Repositories\Interfaces\CategoriesRepositoryInterface;
 class AdminCategoriesController extends Controller
 {
+    private $categoriesRepository;
+
+    public function __construct(
+        CategoriesRepositoryInterface $categoriesRepository
+    )
+    {
+        $this->categoriesRepository = $categoriesRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +25,9 @@ class AdminCategoriesController extends Controller
      */
     public function index()
     {
-        $data['catelist'] = Categories::orderby('id', 'asc')->paginate(Config::get('app.paginate'));
+        $catelist = $this->categoriesRepository->getCategories();
 
-        return view('admin.categories.listcategories',$data);
+        return view('admin.categories.listcategories', compact(['catelist']));
     }
 
     /**
@@ -29,9 +37,9 @@ class AdminCategoriesController extends Controller
      */
     public function create()
     {
-        $data['catelist'] = Categories::all();
+        $catelist = $this->categoriesRepository->getCategories();
 
-        return view('admin.categories.addcategories',$data);
+        return view('admin.categories.addcategories', compact(['catelist']));
     }
 
     /**
@@ -42,11 +50,7 @@ class AdminCategoriesController extends Controller
      */
     public function store(AddCategoriesRequest $request)
     {
-        $cate = new Categories;
-        $cate->categories_name = $request->categories_name;
-        $cate->parent_id = $request->parent_id;
-        $cate->save();
-
+        $this->categoriesRepository->createCategory($request->all());
         return redirect()->intended('admin/categories');
     }
 
@@ -69,14 +73,13 @@ class AdminCategoriesController extends Controller
      */
     public function edit($id)
     {
-        if($id != null){
-            $data['editcate'] = Categories::find($id);
-            $data['catelist'] = Categories::all();
+        try {
+            $catelist = $this->categoriesRepository->getCategories();
+            $editcate = $this->categoriesRepository->findCategories($id);
 
-            return view('admin.categories.editcategories',$data);
-        }
-        else
-        {
+            return view('admin.categories.editcategories', compact('catelist', 'editcate'));
+        } catch (Exception $e) {
+
             return back()->withErrors( __('message.edit'));
         }
     }
@@ -90,16 +93,12 @@ class AdminCategoriesController extends Controller
      */
     public function update(EditCategoriesRequest $request, $id)
     {
-        if($id != null){
-            $cate = Categories::find($id);
-            $cate->categories_name = $request->categories_name;
-            $cate->parent_id = $request->parent;
-            $cate->save();
+        try {
+            $update = $this->categoriesRepository->updateCategory($id, $request->all());
 
             return redirect()->intended('admin/categories');
-        }
-        else
-        {
+        } catch (Exception $e) {
+
             return back()->withErrors( __('message.edit'));
         }
     }
@@ -112,14 +111,16 @@ class AdminCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        if($id != null){
-            Categories::destroy($id);
+        try {
+            $this->categoriesRepository->deleteCategory($id);
 
-             return redirect()->intended('admin/categories');
-        }
-        else
-        {
+            return redirect()->intended('admin/categories');
+
+        } catch (Exception $e) {
+
             return back()->withErrors( __('message.xoa'));
         }
     }
 }
+
+

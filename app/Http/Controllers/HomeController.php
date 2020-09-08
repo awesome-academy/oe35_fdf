@@ -6,9 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Categories;
 use Illuminate\Support\Facades\Config;
-
+use App\Repositories\Interfaces\CategoriesRepositoryInterface;
+use App\Repositories\Interfaces\ProductRepositoryInterface;
 class HomeController extends Controller
 {
+    private $categoriesRepository;
+    private $productRepository;
+    public function __construct(
+        CategoriesRepositoryInterface $categoriesRepository,
+        ProductRepositoryInterface $productRepository
+    )
+    {
+        $this->categoriesRepository = $categoriesRepository;
+        $this->productRepository = $productRepository;
+    }
     /**
      * Create a new controller instance.
      *
@@ -22,30 +33,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::orderby('id', 'asc')->paginate(Config::get('app.paginate12'));
-        $categories = Categories::where('parent_id', '=', null)->orderBy('id', 'asc')->select()->get();
-        $categorieChilds = Categories::where('parent_id', '!=', null)->orderBy('id', 'asc')->select()->get();
-        $data = [
-            'products' => $products,
-            'categories' => $categories,
-            'categorieChilds' => $categorieChilds,
-        ];
+        $products = $this->productRepository->getProductsHome();
+        $categories = $this->categoriesRepository->getCategoriesHome();
+        $categorieChilds = $this->categoriesRepository->getCategoriesChildHome();
 
-        return view('homepage', $data);
+        return view('homepage', compact(['categories', 'categorieChilds', 'products']));
     }
 
     public function get_product_detail($id)
     {
-        if( $id != null ){
-            $products = Product::where('id', '=' , $id)->get();
-            $data = [
-                'products' => $products,
-            ];
+        try {
+            $products = $this->productRepository->product_detail($id);
+            return view('pages.components.detailproduct', compact(['products']));
+        } catch (Exception $e) {
 
-            return view('pages.components.detailproduct', $data);
-        } else {
-
-            return back()->withErrors( trans('message.fail'));
+            return back()->withErrors( __('message.edit'));
         }
     }
 }

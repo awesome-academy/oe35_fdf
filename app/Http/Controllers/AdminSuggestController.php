@@ -8,9 +8,18 @@ use App\Models\Suggest;
 use App\User;
 use Session;
 use Auth;
-
+use App\Repositories\Interfaces\SuggestRepositoryInterface;
 class AdminSuggestController extends Controller
 {
+
+    private $suggestRepository;
+
+    public function __construct(
+        SuggestRepositoryInterface $suggestRepository
+    )
+    {
+        $this->suggestRepository = $suggestRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +27,8 @@ class AdminSuggestController extends Controller
      */
     public function index()
     {
-        $data['listsuggest'] = Suggest::orderby('id', 'desc')->paginate(Config::get('app.paginate'));
-        return view('admin.suggest.listsuggest',$data);
+        $listsuggest = $this->suggestRepository->getSuggest();
+        return view('admin.suggest.listsuggest', compact(['listsuggest']));
     }
 
     /**
@@ -74,15 +83,12 @@ class AdminSuggestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($id != null){
-            $suggest = Suggest::find($id);
-            $suggest->status = 0;
-            $suggest->save();
+        try {
+            $update = $this->suggestRepository->updateSuggest($id, $request->all());
 
-            return redirect('admin/suggest');
-        }
-        else
-        {
+            return redirect()->intended('admin/suggest');
+        } catch (Exception $e) {
+
             return back()->withErrors( __('message.edit'));
         }
     }
@@ -95,12 +101,13 @@ class AdminSuggestController extends Controller
      */
     public function destroy($id)
     {
-        if($id != null){
-            Suggest::destroy($id);
-            return redirect('admin/suggest');
-        }
-        else
-        {
+        try {
+            $this->suggestRepository->deleteSuggest($id);
+
+            return redirect()->intended('admin/suggest');
+
+        } catch (Exception $e) {
+
             return back()->withErrors( __('message.xoa'));
         }
     }
