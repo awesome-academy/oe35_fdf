@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "barryvdh/laravel-debugbar": "^3.4",
+        "bensampo/laravel-enum": "^3.0",
         "bumbummen99/shoppingcart": "^2.9",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
@@ -64,4 +65,5 @@
             "@php artisan key:generate --ansi"
         ]
     }
+
 }

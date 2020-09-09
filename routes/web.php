@@ -67,3 +67,10 @@ Route::resource('profile', 'ProfileController')->only([
 Route::resource('favorite', 'FavoriteController')->only([
     'index', 'update'
 ]);
+
+
+Route::post('/login', 'AuthController@login');
+
+Route::get('admin', 'AdminCategoriesController@index')->name('admin')->middleware('CheckLevel', 'auth');
+
+Route::get('logout', 'AuthController@logout')->name('logout');
