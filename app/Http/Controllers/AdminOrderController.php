@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Categories;
-use App\Models\Suggest;
-use App\User;
-use Session;
+use App\Models\Order;
+use DB;
 use Auth;
-use App\Http\Requests\ChangePasswordRequest;
-use App\Repositories\Interfaces\UserRepositoryInterface;
-class ProfileController extends Controller
+use Illuminate\Support\Facades\Config;
+use Mail;
+use App\Mail\AdminAcceptOrder;
+use App\Repositories\Interfaces\OrderRepositoryInterface;
+class AdminOrderController extends Controller
 {
-    private $userRepository;
+    private $orderRepository;
 
     public function __construct(
-        UserRepositoryInterface $userRepository
+        OrderRepositoryInterface $orderRepository
     )
     {
-        $this->userRepository = $userRepository;
+        $this->orderRepository = $orderRepository;
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +27,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('profile.profile');
+        $orders = $this->orderRepository->getOrder();
+
+        return view('admin.order.index', compact(['orders']));
     }
 
     /**
@@ -80,12 +82,11 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ChangePasswordRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try {
-        $update = $this->userRepository->updateUser($id, $request->all());
-
-            return redirect('/homepage');
+            $update = $this->orderRepository->updateOrder($id, $request->all());
+            return redirect()->back();
         } catch (Exception $e) {
 
             return back()->withErrors( __('message.edit'));

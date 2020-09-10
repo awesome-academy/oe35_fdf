@@ -59,8 +59,10 @@ class CategoriesRepository extends BaseRepository implements CategoriesRepositor
         $result = $this->model->find($id);
         if ($result) {
             $data = $result->delete();
+
             return $data;
         }
+
         return $data;
     }
 }

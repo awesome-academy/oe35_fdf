@@ -21,6 +21,8 @@ use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Eloquent\FavoriteRepository;
 use App\Repositories\Interfaces\FavoriteRepositoryInterface;
+use App\Repositories\Eloquent\OrderRepository;
+use App\Repositories\Interfaces\OrderRepositoryInterface;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -35,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SuggestRepositoryInterface::class, SuggestRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(FavoriteRepositoryInterface::class, FavoriteRepository::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
     }
 
     /**

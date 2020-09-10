@@ -45,8 +45,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         ]);
         $result = true;
         } catch (Exception $exception) {
+
             return $result;
         }
+
         return $result;
     }
 
@@ -54,8 +56,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         try {
         $result = $this->model->find($id);
+
         return $result;
         } catch (Exception $exception) {
+
             return back()->withErrors( __('message.edit'));
         }
     }
@@ -82,8 +86,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $product->save();
         $result = true;
         } catch (Exception $exception) {
+
             return $result;
         }
+
         return $result;
     }
 
@@ -93,6 +99,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $result = $this->model->where('id', '=' , $id)->get();
         return $result;
         } catch (Exception $exception) {
+
             return back()->withErrors( __('message.edit'));
         }
     }
@@ -103,8 +110,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $result = $this->model->find($id);
         if ($result) {
             $data = $result->delete();
+
             return $data;
         }
+
         return $data;
     }
 }

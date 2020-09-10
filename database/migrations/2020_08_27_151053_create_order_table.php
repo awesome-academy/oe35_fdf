@@ -17,7 +17,7 @@ class CreateOrderTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->double('total_price');
-            $table->boolean('status')->default(0);
+            $table->enum('status')->default('Ordered');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

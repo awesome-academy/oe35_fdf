@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use Cart;
 use Illuminate\Support\Facades\Redirect;
-
+use App\Repositories\Interfaces\ProductRepositoryInterface;
 class CartController extends Controller
 {
+    private $productRepository;
+    public function __construct(
+        ProductRepositoryInterface $productRepository
+    )
+    {
+        $this->productRepository = $productRepository;
+    }
     public function index()
     {
         return view('pages.components.cart');
@@ -19,7 +26,7 @@ class CartController extends Controller
 
         $product_id = $request->product_id_hidden;
         $quantity = $request->quantity;
-        $product = Product::where('id', $product_id)->first();
+        $product = $this->productRepository->findProduct($product_id);
 
         $data['id'] = $product_id;
         $data['qty'] = $quantity;

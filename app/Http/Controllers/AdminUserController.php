@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Session;
-
+use App\Repositories\Interfaces\UserRepositoryInterface;
 class AdminUserController extends Controller
 {
+    private $userRepository;
+
+    public function __construct(
+        UserRepositoryInterface $userRepository
+    )
+    {
+        $this->userRepository = $userRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,23 +23,19 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $user = User::paginate();
-        $data = [
-            'users' => $user
-        ];
+        $users = $this->userRepository->getUser();
 
-        return view('admin.users.index', $data);
+        return view('admin.users.index', compact(['users']));
     }
 
     public function delete($id)
     {
-        $user = User::find($id);
-        if( $user != null ){
-            $user->delete();
-            Session::put('message_delete', 'Success');
-            return redirect()->back();
-        } else {
-            return back()->withErrors( trans('message.fail'));
+        $data = null;
+        $result = $this->model->find($id);
+        if ($result) {
+            $data = $result->delete();
+            return $data;
         }
+        return $data;
     }
 }
