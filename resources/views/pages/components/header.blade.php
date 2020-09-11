@@ -48,7 +48,7 @@
                                             <a class="dropdown-item" id="logout_btn">
                                                 {{ trans('message.logout') }}
                                             </a>
-                                            <a class="dropdown-item" href="{{ route('ordered', Auth::user()->id)}}">
+                                            <a class="dropdown-item" href="">
                                                 {{ trans('message.ordered') }}
                                             </a>
                                         </div>
