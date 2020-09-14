@@ -17,6 +17,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "lampager/lampager-laravel": "^0.4.5",
         "laravel/framework": "^7.1",
+        "laravel/nexmo-notification-channel": "^2.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1"
     },
