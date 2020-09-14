@@ -10,10 +10,18 @@ use App\Models\Product;
 use App\User;
 use Session;
 use Auth;
+use App\Repositories\Interfaces\FavoriteRepositoryInterface;
 use DB;
 use App\Http\Requests\FavoriteRequest;
 class FavoriteController extends Controller
 {
+    private $favoriteRepository;
+    public function __construct(
+        FavoriteRepositoryInterface $favoriteRepository
+    )
+    {
+        $this->favoriteRepository = $favoriteRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,10 +29,10 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        $data['favorites'] = DB::table('product')
-        ->join('favorite', 'favorite.product_id', '=', 'product.id')
-        ->select('product.*', 'favorite.product_id', 'favorite.user_id')->distinct()->get();
-        return view('pages.components.favorite', $data);
+        $favorites = $this->favoriteRepository->getFavorite();
+        return view('pages.components.favorite', compact(['favorites']));
+
+
     }
 
     /**
@@ -80,11 +88,7 @@ class FavoriteController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $product = Product::findOrFail($id);
-            $pavorite = new Favorite;
-            $pavorite->product_id = $id;
-            $pavorite->user_id  = Auth::user()->id;
-            $pavorite->save();
+            $update = $this->favoriteRepository->updateFavorite($id, $request->all());
 
             return redirect('/homepage');
         } catch (Exception $e) {

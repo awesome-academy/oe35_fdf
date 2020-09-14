@@ -13,11 +13,11 @@ class AuthController extends Controller
         $p = $requestAuth['password'];
         if(Auth::attempt(['email' => $u, 'password' => $p]))
         {
-            if($this->authorize('admin'))
+            if(Auth::user()->level == 'Admin')
             {
-                return redirect()->route('admin');
+                return redirect()->intended('admin');
             }
-            if($this->authorize('customer'))
+            if(Auth::user()->level == 'Customer')
             {
                 return redirect()->route('homepage');
             }

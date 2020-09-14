@@ -9,8 +9,17 @@ use App\User;
 use Session;
 use Auth;
 use App\Http\Requests\AddSuggestRequest;
+use App\Repositories\Interfaces\SuggestRepositoryInterface;
 class SuggestController extends Controller
 {
+    private $suggestRepository;
+
+    public function __construct(
+        SuggestRepositoryInterface $suggestRepository
+    )
+    {
+        $this->suggestRepository = $suggestRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,9 +27,8 @@ class SuggestController extends Controller
      */
     public function index()
     {
-        $data['catelist'] = Categories::all();
 
-        return view('suggest.suggest',$data);
+        return view('suggest.suggest');
     }
 
     /**
@@ -41,18 +49,7 @@ class SuggestController extends Controller
      */
     public function store(AddSuggestRequest $request)
     {
-        $file_name = $request->file('product_img')->getClientOriginalName();
-        $suggest = new Suggest;
-        $suggest->product_name = $request->product_name;
-        $suggest->product_img = $file_name;
-        $suggest->description = $request->description;
-        $suggest->reason = $request->reason;
-        $suggest->price = $request->price;
-        $suggest->status = 1;
-        $suggest->categories_id = $request->categories_id;
-        $suggest->user_id  = Auth::user()->id;
-        $request->file('product_img')->move('image',$file_name);
-        $suggest->save();
+        $this->suggestRepository->createSuggest($request->all());
 
         return redirect('/homepage');
     }

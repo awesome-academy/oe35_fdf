@@ -20,6 +20,9 @@ Route::group(['prefix' => 'admin'], function() {
     Route::resource('suggest', 'AdminSuggestController')->only([
     'index', 'update', 'destroy'
     ]);
+    Route::resource('order', 'AdminOrderController')->only([
+    'index', 'update'
+    ]);
 });
 
 Route::group(['prefix' => 'categories'], function() {
