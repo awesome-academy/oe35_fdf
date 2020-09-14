@@ -23,6 +23,9 @@ Route::group(['prefix' => 'admin'], function() {
     Route::resource('order', 'AdminOrderController')->only([
     'index', 'update'
     ]);
+    Route::resource('statistic', 'StatisticController')->only([
+    'index'
+    ]);
 });
 
 Route::group(['prefix' => 'categories'], function() {

@@ -23,6 +23,8 @@ use App\Repositories\Eloquent\FavoriteRepository;
 use App\Repositories\Interfaces\FavoriteRepositoryInterface;
 use App\Repositories\Eloquent\OrderRepository;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Repositories\Eloquent\StatisticRepository;
+use App\Repositories\Interfaces\StatisticRepositoryInterface;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -38,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(FavoriteRepositoryInterface::class, FavoriteRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(StatisticRepositoryInterface::class, StatisticRepository::class);
     }
 
     /**
