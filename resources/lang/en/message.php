@@ -154,5 +154,12 @@ return [
     'accept' => 'Accept',
     'homepage' => 'Home',
     'done' => 'Done',
+
+
+    'adminorder' => 'Admin Order Status',
+    'timeorder' => 'HEHE 5 Giờ Rồi!',
+    'vaocheck' => 'Vào Check Order',
+    'check' => 'Check Order!',
+    'good' => 'Good Luck!',
 ];
 ?>
