@@ -9,6 +9,7 @@ use App\Repositories\Interfaces\OrderRepositoryInterface;
 use DB;
 use Illuminate\Support\Facades\Config;
 use Mail;
+use App\Mail\AdminAcceptOrder;
 class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 {
     //lấy model tương ứng
@@ -31,6 +32,7 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
             $order->status = 'Being';
             $email = $data['email'];
             $order->save();
+            Mail::to($email)->send(new \App\Mail\AdminAcceptOrder($order));
             $result = true;
         } catch (Exception $exception) {
 
